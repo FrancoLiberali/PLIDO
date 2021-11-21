@@ -20,10 +20,8 @@ h = humidity.read_value()
 
 rec = senml.SenmlRecord("temperature", 
     unit=senml.SenmlUnits.SENML_UNIT_DEGREES_CELSIUS, 
-    value=t)         
+    value=t)
 sens.add(rec)
-
-
 
 print(len(sens.to_json()), sens.to_json())
 print(len(sens.to_cbor()), binascii.hexlify(sens.to_cbor()))
