@@ -8,7 +8,7 @@ import time
 import pprint
 
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-s.bind(('0.0.0.0', 33033))
+s.bind(('0.0.0.0', 2554 + 33033))
 
 bbt = beebotte.BBT(config_bbt.API_KEY, config_bbt.SECRET_KEY)
 
