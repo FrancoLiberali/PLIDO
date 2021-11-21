@@ -19,8 +19,8 @@ while True:
     print (j)
 
     samples += 1
-    t_m += j[0]/100.0
-    p_m += j[1]/100.0
-    h_m += j[2]/100.0
+    t_m += j[0] / 100.0
+    p_m += j[1] / 100.0
+    h_m += j[2] / 100.0
     if len(data) > j_max: j_max = len(data)
     print ("{:7.2f} {:10.2f} {:7.2f} | {:}".format(t_m/samples, p_m/samples, h_m/samples, j_max))

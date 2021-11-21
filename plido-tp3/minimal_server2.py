@@ -5,7 +5,7 @@ import json
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 s.bind(('0.0.0.0', 33033))
 
-samples =0
+samples = 0
 t_m = 0.0
 p_m = 0.0
 h_m = 0.0
@@ -16,7 +16,7 @@ while True:
     print (data, "=>", binascii.hexlify(data))
 
     j = json.loads(data)
-    print (j)
+    print(j)
 
     samples += 1
     t_m += j[0]

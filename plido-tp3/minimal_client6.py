@@ -14,6 +14,6 @@ while True:
     p = pressure.read_value()
     h = humidity.read_value()
 
-    j = [t, p, h]
-    s.sendto (cbor.dumps(j), ("127.0.0.1", 33033))
+    j = [int(t * 100), int(p * 100), int(h * 100)]
+    s.sendto(cbor.dumps(j), ("127.0.0.1", 33033))
     time.sleep(10)
