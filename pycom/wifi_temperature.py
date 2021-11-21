@@ -23,7 +23,7 @@ while True:
         t_history = [t]
     elif len(t_history) >= NB_ELEMENT:
         print ("send")
-        s.sendto (cbor.dumps(t_history), ("192.168.1.47", 33033))
+        s.sendto (cbor.dumps(t_history), ("54.37.158.10", 33033))
         t_history = [t]
     else:
         t_history.append(t-prev)
