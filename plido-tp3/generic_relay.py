@@ -23,7 +23,7 @@ app.debug = True
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-defPort = 9999
+defPort = 2554
 
 def forward_data(payload):
     global verbose
@@ -33,7 +33,7 @@ def forward_data(payload):
 
     if verbose:
         print ("--UP->", binascii.hexlify(payload))
-    sock.sendto(payload, ("127.0.0.1", 33033))
+    sock.sendto(payload, ("127.0.0.1", defPort + 33033))
 
     readable, writable, exceptional = select.select(inputs, outputs, inputs, 0.1)
 
