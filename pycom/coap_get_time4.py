@@ -1,13 +1,17 @@
 import CoAP
 import socket
 
-SERVER = "192.168.1.XX" # change to your server's IP address
+SERVER = "10.48.172.4" # change to your server's IP address
 PORT   = 5683
 
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 coap = CoAP.Message()
-coap.new_header(code=CoAP.GET, token=0x12345)
+coap.new_header(
+	code=CoAP.GET,
+	token=0x12345,
+	type=CoAP.NON
+)
 coap.add_option (CoAP.Uri_path, "time")
 coap.dump()
 

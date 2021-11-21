@@ -24,7 +24,7 @@ import aiocoap
 class TimeResource(resource.Resource):
 
     async def render_get(self, request):
-        await asyncio.sleep(5)
+        # await asyncio.sleep(5)
 
         payload = datetime.datetime.now().\
                 strftime("%Y-%m-%d %H:%M").encode('ascii')
