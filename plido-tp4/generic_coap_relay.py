@@ -27,7 +27,8 @@ app.debug = True
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-defPort = 9999
+defPort = 2554
+coapServerPort = 5683 + defPort
 
 def forward_data(payload):
     global verbose
@@ -37,14 +38,14 @@ def forward_data(payload):
 
     if verbose:
         print ("--UP->", binascii.hexlify(payload))
-    sock.sendto(payload, ("127.0.0.1", 5683))
+    sock.sendto(payload, ("127.0.0.1", coapServerPort))
 
     readable, writable, exceptional = select.select(inputs, outputs, inputs, 0.1)
 
     if readable == []:
         if verbose:
             print ("no DW")
-        return None   
+        return None
 
     for s in readable:
             replyStr = s.recv(1000)

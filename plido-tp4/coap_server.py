@@ -36,7 +36,12 @@ import beebotte
 
 
 # establish the context with beebotte.
-bbt = beebotte.BBT(config_bbt.API_KEY, config_bbt.SECRET_KEY) 
+bbt = beebotte.BBT(config_bbt.API_KEY, config_bbt.SECRET_KEY)
+
+PERIOD = 1
+
+defPort = 2554
+coapServerPort = 5683 + defPort
 
 
 def to_bbt(channel, res_name, msg, factor=1, period=10, epoch=None):
@@ -107,7 +112,7 @@ class generic_sensor(resource.PathCapable):
             print ("text:", request.payload)
         elif ct == aiocoap.numbers.media_types_rev['application/cbor']:
             print ("cbor:", cbor.loads(request.payload))
-            to_bbt(devEUI, measurement, cbor.loads(request.payload), period=60, factor=0.01)
+            to_bbt(devEUI, measurement, cbor.loads(request.payload), period=PERIOD, factor=0.01)
         else:
             print ("Unknown format")
             return aiocoap.Message(code=aiocoap.UNSUPPORTED_MEDIA_TYPE)
@@ -133,7 +138,7 @@ class temperature(resource.Resource):
         # cbor will be displayed and processed.
         elif ct == aiocoap.numbers.media_types_rev['application/cbor']:
             print ("cbor:", cbor.loads(request.payload))
-            to_bbt("capteurs", "temperature", cbor.loads(request.payload), period=60, factor=0.01)
+            to_bbt("capteurs", "temperature", cbor.loads(request.payload), period=PERIOD, factor=0.01)
         else:
             print ("Unknown format")
             return aiocoap.Message(code=aiocoap.UNSUPPORTED_MEDIA_TYPE)
@@ -151,7 +156,7 @@ class pressure(resource.Resource):
             print ("text:", request.payload)
         elif ct == aiocoap.numbers.media_types_rev['application/cbor']:
             print ("cbor:", cbor.loads(request.payload))
-            to_bbt("capteurs", "pressure", cbor.loads(request.payload), period=1, factor=0.01)
+            to_bbt("capteurs", "pressure", cbor.loads(request.payload), period=PERIOD, factor=0.01)
         else:
             print ("Unknown format")
             return aiocoap.Message(code=aiocoap.UNSUPPORTED_MEDIA_TYPE)
@@ -167,7 +172,24 @@ class humidity(resource.Resource):
             print ("text:", request.payload)
         elif ct == aiocoap.numbers.media_types_rev['application/cbor']:
             print ("cbor:", cbor.loads(request.payload))
-            to_bbt("capteurs", "humidity", cbor.loads(request.payload), period=60, factor=1)
+            to_bbt("capteurs", "humidity", cbor.loads(request.payload), period=PERIOD, factor=0.01)
+
+        else:
+            print ("Unknown format")
+            return aiocoap.Message(code=aiocoap.UNSUPPORTED_MEDIA_TYPE)
+        return aiocoap.Message(code=aiocoap.CHANGED)
+
+class memory(resource.Resource):
+    async def render_post(self, request):
+
+        ct = request.opt.content_format or \
+                aiocoap.numbers.media_types_rev['text/plain']
+
+        if ct == aiocoap.numbers.media_types_rev['text/plain']:
+            print ("text:", request.payload)
+        elif ct == aiocoap.numbers.media_types_rev['application/cbor']:
+            print ("cbor:", cbor.loads(request.payload))
+            to_bbt("capteurs", "memory", cbor.loads(request.payload), period=PERIOD, factor=1)
 
         else:
             print ("Unknown format")
@@ -187,10 +209,16 @@ def main():
     root.add_resource(['temperature'], temperature())
     root.add_resource(['pressure'], pressure())
     root.add_resource(['humidity'], humidity())
+    root.add_resource(['memory'], memory())
     root.add_resource(['proxy'], generic_sensor())
-    
+
     # associate resource tree and socket
-    asyncio.Task(aiocoap.Context.create_server_context(root))
+    asyncio.Task(
+        aiocoap.Context.create_server_context(
+            root,
+            bind=("0.0.0.0", coapServerPort)
+        )
+    )
 
     # let's go forever
     asyncio.get_event_loop().run_forever()

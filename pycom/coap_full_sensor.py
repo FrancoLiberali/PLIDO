@@ -12,10 +12,10 @@ the parameters are sent on a full CoAP message. Downlink is limited to error
 messages (4.xx and 5.xx) and not taken into account by the program.
 
 """
-#SERVER = "LORAWAN" # change to your server's IP address, or SIGFOX or LORAWAN
+SERVER = "LORAWAN" # change to your server's IP address, or SIGFOX or LORAWAN
 #SERVER="SIGFOX"
-SERVER = "192.168.1.XX" # change to your server's IP address, or SIGFOX or LORAWAN
-PORT   = 5683
+# SERVER = "54.37.158.10" # change to your server's IP address, or SIGFOX or LORAWAN
+PORT   = 5683 + 2554
 destination = (SERVER, PORT)
 
 import CoAP
@@ -49,7 +49,8 @@ if SERVER == "LORAWAN":
 
     # create an OTAA authentication parameters
     app_eui = binascii.unhexlify('0000000000000000'.replace(' ',''))
-    app_key = binascii.unhexlify('11223344556677881122334455667788'.replace(' ',''))   # Acklio
+    # app_key = binascii.unhexlify('11223344556677881122334455667788'.replace(' ',''))   # Acklio
+    app_key = binascii.unhexlify('05111995110719980509200020112021'.replace(' ',''))   # Acklio personalized cause the order one doesnt worked
     lora.join(activation=LoRa.OTAA, auth=(app_eui, app_key),  timeout=0)
 
     pycom.heartbeat(False) # turn led to white
@@ -303,4 +304,4 @@ while True:
         memo_ts = []
         memory_offset = 0
 
-    time.sleep (60) # wait for 1 minute.
+    time.sleep(1) # wait for 1 minute.
