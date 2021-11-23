@@ -1,0 +1,16 @@
+diff --git a/pycom/CoAP.py b/pycom/CoAP.py
+index 971c0f2..08526d8 100755
+--- a/pycom/CoAP.py
++++ b/pycom/CoAP.py
+@@ -257,7 +257,10 @@ def send_ack(s, dest, coap):
+     attempts = 1
+ 
+     while True:
+-        s.sendto (coap.to_byte(), dest)
++        if dest[0] not in ["LORAWAN", "SIGFOX"]:
++            s.sendto(coap.to_byte(), dest)
++        else:
++            s.send(coap.to_byte())
+ 
+         if coap.get_type() == NON:
+             return None

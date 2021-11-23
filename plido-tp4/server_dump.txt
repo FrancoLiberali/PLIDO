@@ -1,0 +1,19 @@
+(venv) ponyta@user:~/PLIDObis/plido-tp4$ python3.9 coap_server.py 
+DEBUG:coap-server:Incoming message <aiocoap.Message at 0x7f6790b44610: Type.NON POST (MID 1, empty token) remote <UDP6EndpointAddress 127.0.0.1:45754 (locally 127.0.0.1%lo)>, 3 option(s), 9 byte(s) payload>
+DEBUG:coap-server:New unique message received
+cbor: [2512192, 0, 0, 0]
+[{'data': 2512192, 'resource': 'memory', 'ts': 1637612662000.0},
+ {'data': 2512192, 'resource': 'memory', 'ts': 1637612663000.0},
+ {'data': 2512192, 'resource': 'memory', 'ts': 1637612664000.0},
+ {'data': 2512192, 'resource': 'memory', 'ts': 1637612665000.0}]
+DEBUG:coap-server:Stopping message in message manager as it is no_response and no ACK is pending.
+DEBUG:coap-server:Incoming message <aiocoap.Message at 0x7f6790b443a0: Type.NON POST (MID 2, empty token) remote <UDP6EndpointAddress 127.0.0.1:45754 (locally 127.0.0.1%lo)>, 3 option(s), 13 byte(s) payload>
+DEBUG:coap-server:New unique message received
+cbor: [2901, 279, 20, 99, -92, -18]
+[{'data': 29.01, 'resource': 'humidity', 'ts': 1637612665000.0},
+ {'data': 31.8, 'resource': 'humidity', 'ts': 1637612666000.0},
+ {'data': 32.0, 'resource': 'humidity', 'ts': 1637612667000.0},
+ {'data': 32.99, 'resource': 'humidity', 'ts': 1637612668000.0},
+ {'data': 32.07, 'resource': 'humidity', 'ts': 1637612669000.0},
+ {'data': 31.89, 'resource': 'humidity', 'ts': 1637612670000.0}]
+DEBUG:coap-server:Stopping message in message manager as it is no_response and no ACK is pending.

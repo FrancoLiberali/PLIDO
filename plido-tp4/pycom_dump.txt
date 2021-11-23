@@ -1,0 +1,62 @@
+>>> Running coap_full_sensor.py
+
+>>> 
+>>> True micropython
+devEUI:  b'70b3d54999aab475'
+Not yet joined...
+Not yet joined...
+Not yet joined...
+_i2c
+[118]
+use BME True
+Send real measurements
+OFFSET 0 2 5 7
+MTU size is 200 Payload size is 175 samples  10
+2300 65607 2901 2512192
+temperature 4 1 [2300]
+pressure    4 1 [2901]
+humidity    6 1 [65607]
+memory      6 1 [2512192]
+2168 102585 3180 2512192
+temperature 6 2 [2300, -132]
+pressure    7 2 [2901, 279]
+humidity    9 2 [65607, 36978]
+memory      7 2 [2512192, 0]
+2166 102593 3200 2512192
+temperature 7 3 [2300, -132, -2]
+pressure    8 3 [2901, 279, 20]
+humidity    10 3 [65607, 36978, 8]
+memory      8 3 [2512192, 0, 0]
+2168 102588 3299 2512192
+temperature 8 4 [2300, -132, -2, 2]
+pressure    10 4 [2901, 279, 20, 99]
+humidity    11 4 [65607, 36978, 8, -5]
+memory      9 4 [2512192, 0, 0, 0]
+send memory
+b'50020001b66d656d6f7279113cd1e902ff841a00265540000000'
+NON  0x0001 POST  
+> Uri-path : b'memory'
+> Content-format : 60
+> No-Response : 2
+---CONTENT
+hex: b'841a00265540000000'
+txt: b'\x84\x1a\x00&U@\x00\x00\x00'
+2167 102599 3207 2512160
+temperature 9 5 [2300, -132, -2, 2, -1]
+pressure    12 5 [2901, 279, 20, 99, -92]
+humidity    12 5 [65607, 36978, 8, -5, 11]
+memory      6 1 [2512160]
+2167 102590 3189 2512144
+temperature 10 6 [2300, -132, -2, 2, -1, 0]
+pressure    13 6 [2901, 279, 20, 99, -92, -18]
+humidity    13 6 [65607, 36978, 8, -5, 11, -9]
+memory      7 2 [2512160, -16]
+send humidity
+b'50020002b868756d6964697479113cd1e902ff86190b55190117141863385b31'
+NON  0x0002 POST  
+> Uri-path : b'humidity'
+> Content-format : 60
+> No-Response : 2
+---CONTENT
+hex: b'86190b55190117141863385b31'
+txt: b'\x86\x19\x0bU\x19\x01\x17\x14\x18c8[1'
