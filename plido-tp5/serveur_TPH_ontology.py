@@ -38,6 +38,9 @@ from pymongo import MongoClient
 
 collection = []
 
+defPort = 2554
+coapServerPort = 5683 + defPort
+
 
 # establish the context with beebotte.
 bbt = beebotte.BBT(config_bbt.API_KEY, config_bbt.SECRET_KEY) 
@@ -226,15 +229,15 @@ def main():
     # MUST be changed with your device characteristics
     #
 
-    MY_SENSOR_ID = "CHANGE_ME_TO_DEVID"
+    MY_SENSOR_ID = "70b3d54999aab475"
 
     my_sensor = {
         "@context": "http://user.ackl.io/schema/Sensor",
         "ThingID" : MY_SENSOR_ID,
-        "Name" : "Room 23",
+        "Name" : "Room 122",
         "Manufacturer" : "pycom LOPY4",
         "Link" : "LoRaWAN Acklio",
-        "Location" : "Room 23",
+        "Location" : "Room 122",
         "Address" : MY_SENSOR_ID
         }
 
@@ -264,7 +267,12 @@ def main():
     root.add_resource(['proxy'], generic_sensor())
     
     # associate resource tree and socket
-    asyncio.Task(aiocoap.Context.create_server_context(root))
+    asyncio.Task(
+        aiocoap.Context.create_server_context(
+            root,
+            bind=("0.0.0.0", coapServerPort)
+        )
+    )
 
     # let's go forever
     asyncio.get_event_loop().run_forever()
