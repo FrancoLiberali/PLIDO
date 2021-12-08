@@ -38,6 +38,9 @@ from pymongo import MongoClient
 
 collection = []
 
+defPort = 2554
+coapServerPort = 5683 + defPort
+
 
 # establish the context with beebotte.
 bbt = beebotte.BBT(config_bbt.API_KEY, config_bbt.SECRET_KEY) 
@@ -221,7 +224,12 @@ def main():
     root.add_resource(['proxy'], generic_sensor())
     
     # associate resource tree and socket
-    asyncio.Task(aiocoap.Context.create_server_context(root))
+    asyncio.Task(
+        aiocoap.Context.create_server_context(
+            root,
+            bind=("0.0.0.0", coapServerPort)
+        )
+    )
 
     # let's go forever
     asyncio.get_event_loop().run_forever()
