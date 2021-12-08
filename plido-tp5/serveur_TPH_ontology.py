@@ -194,17 +194,17 @@ class TPH(resource.Resource):
 
         # Receiving TPH resource. 
         message = cbor.loads(request.payload)
-        print ("TPH:", message )
+        print ("TPH:", message)
 
         my_measure = {
             "@context" : "http://user.ackl.io/schema/BME280",
             "Temperature" : message[0]/100,
-            "Pressure"    : message[1]/10, 
+            "Pressure"    : message[1]/10,
             "Humidity"    : message[2]/100,
             "SensorCharacteristics" : sensor_id,
             "Date" : datetime.datetime.utcnow().replace(tzinfo=datetime.timezone.utc).isoformat()
-            }
-        
+        }
+
         id = collection.insert_one(my_measure)
         print (my_measure)
  
