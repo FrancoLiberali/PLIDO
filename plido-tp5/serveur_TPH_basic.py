@@ -211,7 +211,7 @@ def main():
 
     client = MongoClient()
     db = client ["meteo-data"]
-    collection = db["raw"]
+    collection = db["ponyta-raw"]
 
     # Resource tree creation
     root = resource.Site()
