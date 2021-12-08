@@ -14,7 +14,16 @@ else:
 
 print (sensor_id)
 
-res = measure.aggregate([{"$match" : {"SensorCharacteristics" : sensor_id }}])
+res = measure.aggregate([
+    {"$match" : {"SensorCharacteristics" : sensor_id }},
+    {"$group" : {
+        "_id": None, # equivalent to null in MongoDB
+        "count": {"$sum": 1},
+        "temp_min": {"$min": "$Temperature"},
+        "temp_max": {"$max": "$Temperature"}
+        }
+    }
+])
 
 print (res)
 
