@@ -182,8 +182,6 @@ class humidity(resource.Resource):
         return aiocoap.Message(code=aiocoap.CHANGED)
 
 class TPH(resource.Resource):
-
-
     async def render_post(self, request):
         ct = request.opt.content_format or \
                 aiocoap.numbers.media_types_rev['text/plain']
@@ -211,7 +209,7 @@ def main():
 
     client = MongoClient()
     db = client ["meteo-data"]
-    collection = db["ponyta-raw"]
+    collection = db["ponytaraw"]
 
     # Resource tree creation
     root = resource.Site()
